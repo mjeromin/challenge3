@@ -28,21 +28,20 @@ def main(req: func.HttpRequest, items: func.DocumentList) -> func.HttpResponse:
     else:
         logging.info("Found ratings item, ID=%s",
                      items[0]['id'])
-    return 'OK'
 
-#    ratingId = req.params.get('ratingId')
-#    if not name:
-#        try:
-#            req_body = req.get_json()
-#        except ValueError:
-#            pass
-#        else:
-#            name = req_body.get('ratingId')
-#
-#    if :
-#        return func.HttpResponse(f"Hello, {name}. This HTTP triggered function executed successfully.")
-#    else:
-#        return func.HttpResponse(
-#             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-#             status_code=200
-#        )
+    ratingId = req.params.get('ratingId')
+    if not ratingId:
+        try:
+            req_body = req.get_json()
+        except ValueError:
+            pass
+        else:
+            ratingId = req_body.get('ratingId')
+
+    if ratingId:
+        return func.HttpResponse(ratingId)
+    else:
+        return func.HttpResponse(
+             "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
+             status_code=200
+        )
