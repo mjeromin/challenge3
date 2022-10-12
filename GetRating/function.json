@@ -1,0 +1,30 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "name": "documents",
+      "type": "cosmosDB",
+      "databaseName": "MyDatabase",
+      "collectionName": "MyCollection",
+      "id" : "{queueTrigger_payload_property}",
+      "partitionKey": "{queueTrigger_payload_property}",
+      "connectionStringSetting": "MyAccount_COSMOSDB",
+      "direction": "in"
+    }
+  ]
+}
