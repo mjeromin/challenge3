@@ -17,12 +17,12 @@
       "name": "$return"
     },
     {
-      "name": "documents",
+      "name": "items",
       "type": "cosmosDB",
-      "databaseName": "MyDatabase",
-      "collectionName": "MyCollection",
-      "id" : "{queueTrigger_payload_property}",
-      "partitionKey": "{queueTrigger_payload_property}",
+      "databaseName": "RatingsDB",
+      "collectionName": "Ratings",
+      "id" : "{id}",
+      "partitionKey": "{id}",
       "connectionStringSetting": "MyAccount_COSMOSDB",
       "direction": "in"
     }
