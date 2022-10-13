@@ -21,8 +21,8 @@
       "type": "cosmosDB",
       "databaseName": "RatingsDB",
       "collectionName": "Ratings",
-      "id" : "{id}",
-      "partitionKey": "{id}",
+      "id" : "{ratingId}",
+      "partitionKey": "{ratingId}",
       "connectionStringSetting": "MyAccount_COSMOSDB",
       "direction": "in"
     }
