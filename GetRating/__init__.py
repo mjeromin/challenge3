@@ -44,7 +44,21 @@ def main(req: func.HttpRequest, items: func.DocumentList) -> func.HttpResponse:
     if ratingId and not items:
         return func.HttpResponse("Rating not found, status 404", status_code=404)
     elif ratingId:
-        return func.HttpResponse(ratingId)
+        my_id =  items[0]['id']
+        my_userId = items[0]['userId']
+        my_productId = items[0]['productId']
+        my_timestamp = items[0]['timestamp']
+        my_locationName = items[0]['locationName']
+        my_rating = items[0]['rating']
+        my_userNotes = items[0]['userNotes']
+        output_payload ='{{\n\t"id": "{}"\n\t"userId": "{}"\n\t"productId": "{}"\n\t"timestamp": "{}"\n\t"locationName": "{}"\n\t"rating": "{}"\n\t"userNotes": "{}"\n}}'.format(my_id,
+                                                                                                                                                                      my_userId,
+                                                                                                                                                                      my_productId,\
+                                                                                                                                                                          my_timestamp,
+                                                                                                                                                                          my_locationName,
+                                                                                                                                                                          my_rating,
+                                                                                                                                                                          my_userNotes)
+        return func.HttpResponse(output_payload)
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
