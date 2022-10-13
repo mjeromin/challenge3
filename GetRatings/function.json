@@ -1,0 +1,29 @@
+{
+  "scriptFile": "__init__.py",
+  "bindings": [
+    {
+      "authLevel": "anonymous",
+      "type": "httpTrigger",
+      "direction": "in",
+      "name": "req",
+      "methods": [
+        "get",
+        "post"
+      ]
+    },
+    {
+      "type": "http",
+      "direction": "out",
+      "name": "$return"
+    },
+    {
+      "name": "items",
+      "type": "cosmosDB",
+      "databaseName": "RatingsDB",
+      "collectionName": "Ratings",
+      "sqlQuery": "SELECT * from c WHERE c.userId = {userId}",
+      "connectionStringSetting": "MyAccount_COSMOSDB",
+      "direction": "in"
+    }
+  ]
+}
