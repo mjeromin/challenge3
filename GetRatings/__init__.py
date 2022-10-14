@@ -1,5 +1,5 @@
 import logging
-
+import json
 import azure.functions as func
 
 def main(req: func.HttpRequest, items: func.DocumentList) -> func.HttpResponse:
@@ -27,29 +27,18 @@ def main(req: func.HttpRequest, items: func.DocumentList) -> func.HttpResponse:
     if userId and not items:
         return func.HttpResponse("User ratings not found, status 404", status_code=404)
     elif userId:
-        item_count = len(items)
-        output_payload = '['
-        for i, item in enumerate(items):
-            my_id =  item['id']
-            my_userId = item['userId']
-            my_productId = item['productId']
-            my_timestamp = item['timestamp']
-            my_locationName = item['locationName']
-            my_rating = item['rating']
-            my_userNotes = item['userNotes']
-            output_payload +='\n\t{{\n\t"id": "{}"\n\t"userId": "{}"\n\t"productId": "{}"\n\t"timestamp": "{}"\n\t"locationName": "{}"\n\t"rating": "{}"\n\t"userNotes": "{}"\n'.format(my_id,
-                                                                                                                                                                      my_userId,
-                                                                                                                                                                      my_productId,\
-                                                                                                                                                                          my_timestamp,
-                                                                                                                                                                          my_locationName,
-                                                                                                                                                                          my_rating,
-                                                                                                                                                                          my_userNotes)
-            if i < item_count:
-                output_payload += '\t},\n'
-            else:
-                output_payload += '\t}\n'
-        output_payload += ']'
-        return func.HttpResponse(output_payload)
+        my_items = []
+        for item in items:
+            my_item = {}
+            my_item['id'] = item['id']
+            my_item['userId'] = item['userId']
+            my_item['productId'] = item['productId']
+            my_item['timestamp'] = item['timestamp']
+            my_item['locationName'] = item['locationName']
+            my_item['rating'] = item['rating']
+            my_item['userNotes'] = item['userNotes']
+            my_items.append(my_item)
+        return func.HttpResponse(json.dumps(my_items))
     else:
         return func.HttpResponse(
              "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
